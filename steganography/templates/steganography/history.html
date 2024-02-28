@@ -1,0 +1,55 @@
+{% extends 'steganography/layout.html' %}
+
+{% block content %}
+    <div class="card mt-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <p class="title m-0">History</p>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    History Type
+                </button>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" href="{% url 'history' %}">All History</a>
+                    <a class="dropdown-item" href="{% url 'history' %}?type=encoding">Encoding History</a>
+                    <a class="dropdown-item" href="{% url 'history' %}?type=decoding">Decoding History</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if not page %}
+                <p>No history to show.</p>
+            {% endif %}
+            <ul class="list-group">
+                {% for entry in page %}
+                    <li class="list-group-item p-3">
+                        {% if entry.image %}
+                            <img src="{{ entry.image.url }}" alt="Image" class="image rounded">
+                        {% endif %}
+                        {% if entry.message %}
+                            <p class="ml-0 mb-2 mt-2">Hidden Message: "{{ entry.message }}"</p>
+                        {% endif %}
+                        <small class="text-muted">Created at: {{ entry.created_at }}</small>
+                        <span class="badge bg-secondary text-light">{{ entry.type }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+            <nav aria-label="Page navigation" class="m-3">
+                <ul class="pagination justify-content-center">
+                    {% if page.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page.previous_page_number }}{% if history_type %}&type={{ history_type }}{% endif %}">previous</a>
+                        </li>
+                    {% endif %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Page {{ page.number }} of {{ page.paginator.num_pages }}</a>
+                    </li>
+                    {% if page.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page.next_page_number }}{% if history_type %}&type={{ history_type }}{% endif %}">next</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav> 
+        </div>
+    </div>
+{% endblock %}

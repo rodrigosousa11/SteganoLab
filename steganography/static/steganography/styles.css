@@ -1,0 +1,46 @@
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    min-height: 82vh;
+}
+
+.content {
+    flex: 1;
+}
+
+.nav-tabs .nav-link {
+    color: #333;
+}
+
+.nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+  
+.sec-background {
+    background-color: #fff;
+}
+
+.image {
+    max-width: 100%; 
+    max-height: 400px; 
+}
+
+.title {
+    font-weight: 500;
+    font-size: 1.05rem;
+}
+
+#decodedMessageContent {
+    margin: 0;
+}
+
+.clickable-svg {
+    cursor: pointer;
+}
